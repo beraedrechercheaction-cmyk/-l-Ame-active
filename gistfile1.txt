@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Âme Active - Librairie Spirituelle & Développement Personnel</title>
+    <!-- FontAwesome pour les icônes de navigation et WhatsApp -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0b3c43; /* Bleu nuit/canard du logo */
+            --secondary-color: #c5a059; /* Doré du logo */
+            --bg-light: #fcfbf9; /* Fond texturé clair */
+            --text-dark: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+        }
+
+        .brand-text h1 {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: var(--secondary-color);
+            margin: 2px 0 0 0;
+            text-transform: uppercase;
+        }
+
+        /* Bouton Admin Privé */
+        .admin-access {
+            background: none;
+            border: 1px dashed transparent;
+            color: #ccc;
+            cursor: pointer;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+        .admin-access:hover {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Section d'administration cachée par défaut */
+        #admin-panel {
+            display: none;
+            background: white;
+            border-top: 4px solid var(--secondary-color);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Vitrine des Livres */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            height: 320px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .book-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-title {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .book-commentary {
+            font-style: italic;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .book-prices {
+            background: #f9f6f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .price-fcf {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .price-converted {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Bouton de commande WhatsApp */
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <!-- Intégration de l'image de votre logo -->
+            <img src="16215481057763771658.jpeg" alt="L'Âme Active Logo" class="logo-img">
+            <div class="brand-text">
+                <h1>L'ÂME ACTIVE</h1>
+                <p>Librairie Spirituelle & Développement Personnel</p>
+            </div>
+        </div>
+        
+        <!-- Bouton d'accès secret (Discret pour le public) -->
+        <button class="admin-access" onclick="accessAdminPanel()" title="Espace propriétaire">
+            <i class="fa-solid fa-lock"></i>
+        </button>
+    </header>
+
+    <div class="container">
+
+        <!-- PANNEAU D'ADMINISTRATION (Téléversement) -->
+        <section id="admin-panel">
+            <h2><i class="fa-solid fa-cloud-arrow-up"></i> Ajouter un nouveau livre</h2>
+            <form id="upload-form" onsubmit="addNewBook(event)">
+                <div class="form-group">
+                    <label for="book-title-input">Titre du livre :</label>
+                    <input type="text" id="book-title-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-cover-input">URL de l'image de couverture :</label>
+                    <input type="url" id="book-cover-input" placeholder="https://exemple.com/couverture.jpg" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-price-input">Prix en FCFA :</label>
+                    <input type="number" id="book-price-input" placeholder="Ex: 5000" required oninput="previewConversions()">
+                    <small id="conversion-preview" style="color: #666; font-style: italic;"></small>
+                </div>
+                <div class="form-group">
+                    <label for="book-comment-input">Votre commentaire / Note de lecture :</label>
+                    <textarea id="book-comment-input" rows="4" placeholder="Partagez votre avis spirituel ou résumé inspirant sur ce livre..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Publier sur la boutique</button>
+            </form>
+        </section>
+
+        <!-- VITRINE PRINCIPALE DES LIVRES -->
+        <main>
+            <h2 style="color: var(--primary-color); border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; margin-bottom: 30px;">
+                Nos Lectures Inspirantes
+            </h2>
+            
+            <div class="books-grid" id="books-container">
+                <!-- Exemple de livre pré-enregistré initialement -->
+                <div class="book-card">
+                    <div class="book-cover" style="background-image: url('https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="book-info">
+                        <h3 class="book-title">Le Pouvoir du Moment Présent</h3>
+                        <p class="book-commentary">"Un guide d'éveil spirituel incontournable. Ce livre m'a personnellement appris à calmer le flux incessant des pensées pour ancrer mon âme dans l'action juste."</p>
+                        <div class="books-prices">
+                            <span class="price-fcf">6 500 FCFA</span>
+                            <div class="price-converted">
+                                <span><i class="fa-solid fa-euro-sign"></i> 9.91 €</span>
+                                <span><i class="fa-solid fa-dollar-sign"></i> 10.83 $</span>
+                            </div>
+                        </div>
+                        <!-- Lien direct WhatsApp configuré avec message automatique -->
+                        <a href="https://wa.me/22896342801?text=Bonjour%20L%27%C3%82me%20Active%2C%20je%20souhaite%20commander%20le%20livre%20%3A%20Le%20Pouvoir%20du%20Moment%20Pr%C3%A9sent" class="btn-whatsapp" target="_blank">
+                            <i class="fa-brands fa-whatsapp"></i> Commander via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 L'Âme Active. Tous droits réservés.</p>
+        <p style="font-size: 12px; color: #aaa;">Lomé, Togo</p>
+    </footer>
+
+    <script>
+        // Taux de conversion statiques indicatifs (à ajuster selon le marché actuel)
+        const Taux_Euro = 655.957; 
+        const Taux_Dollar = 600.00; 
+
+        // 1. Protection simple de l'espace Admin par mot de passe
+        function accessAdminPanel() {
+            let password = prompt("Veuillez saisir votre code d'accès propriétaire :");
+            // Remplacez 'admin123' par le mot de passe de votre choix
+            if (password === 'admin123') {
+                alert("Accès autorisé. Le panneau de téléversement est maintenant visible.");
+                document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Accès refusé. Réservé à l'administrateur.");
+            }
+        }
+
+        // 2. Aperçu des conversions en temps réel dans le formulaire
+        function previewConversions() {
+            const fcfa = parseFloat(document.getElementById('book-price-input').value);
+            const preview = document.getElementById('conversion-preview');
+            if (fcfa > 0) {
+                let euro = (fcfa / Taux_Euro).toFixed(2);
+                let dollar = (fcfa / Taux_Dollar).toFixed(2);
+                preview.textContent = `Aperçu conversion : ~ ${euro} € | ~ ${dollar} $`;
+            } else {
+                preview.textContent = "";
+            }
+        }
+
+        // 3. Logique d'ajout dynamique d'un livre sur la page
+        function addNewBook(event) {
+            event.preventDefault();
+
+            // Récupération des données du formulaire
+            const title = document.getElementById('book-title-input').value;
+            const cover = document.getElementById('book-cover-input').value;
+            const fcfa = parseFloat(document.getElementById('book-price-input').value);
+            const comment = document.getElementById('book-comment-input').value;
+
+            // Calcul des conversions automatiques
+            const euro = (fcfa / Taux_Euro).toFixed(2);
+            const dollar = (fcfa / Taux_Dollar).toFixed(2);
+
+            // Formatage du prix en FCFA avec espaces pour la lisibilité
+            const formattedFCFA = new Intl.NumberFormat('fr-FR').format(fcfa) + " FCFA";
+
+            // Encodage du texte pour le lien WhatsApp automatique
+            const whatsappMessage = encodeURIComponent(`Bonjour L'Âme Active, je souhaite commander le livre : ${title}`);
+            const whatsappLink = `https://wa.me/22896342801?text=${whatsappMessage}`;
+
+            // Création de la carte HTML du livre
+            const bookCard = document.createElement('div');
+            bookCard.className = 'book-card';
+            bookCard.innerHTML = `
+                <div class="book-cover" style="background-image: url('${cover}');"></div>
+                <div class="book-info">
+                    <h3 class="book-title">${title}</h3>
+                    <p class="book-commentary">"${comment}"</p>
+                    <div class="books-prices">
+                        <span class="price-fcf">${formattedFCFA}</span>
+                        <div class="price-converted">
+                            <span><i class="fa-solid fa-euro-sign"></i> ${euro} €</span>
+                            <span><i class="fa-solid fa-dollar-sign"></i> ${dollar} $</span>
+                        </div>
+                    </div>
+                    <a href="${whatsappLink}" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Commander via WhatsApp
+                    </a>
+                </div>
+            `;
+
+            // Insertion au début de la liste
+            const container = document.getElementById('books-container');
+            container.insertBefore(bookCard, container.firstChild);
+
+            // Réinitialisation du formulaire et fermeture du panneau admin
+            document.getElementById('upload-form').reset();
+            document.getElementById('conversion-preview').textContent = "";
+            document.getElementById('admin-panel').style.display = 'none';
+            
+            alert(`Le livre "${title}" a été ajouté avec succès avec vos commentaires et prix convertis !`);
+        }
+    </script>
+</body>
+</html>
